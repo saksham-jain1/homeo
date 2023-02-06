@@ -1,38 +1,110 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.App{
+  background: rgb(185, 117, 117);
+  height: max-content;
   min-height: 100vh;
+  width: 100vw;
+}
+.header{
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 1.3rem;
+  width: 100%;
+  height: 80px;
+  box-shadow: 0 0 15px 0 black;
+  border-radius: 0 0 7px 7px;
 }
 
-.App-link {
-  color: #61dafb;
+.selectors{
+  display: flex;
+  padding: 30px;
+  font-size: 1.2rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 5px 0 black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selectors>div{ 
+  padding: 20px;
+}
+.selectors>div>label{
+  padding: 0px 10px;
+}
+
+.search{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search>input{
+  height:40px;
+  width: 50%;
+  min-width: 200px;
+  border-radius: 15px;
+  border:none;
+  outline:none;
+  padding: 10px;
+}
+
+input:hover,select:hover{
+  cursor: pointer;
+}
+
+.table{
+  padding: 30px;
+  width: 98%;
+  height: 50vh;
+  overflow-y: scroll;
+  background: white;
+  margin: auto;
+}
+
+table,td,th{
+  padding: 10px;
+  border: 2px solid black;
+  border-collapse: collapse;
+  width: 100%;
+  cursor: pointer;
+}
+.table>table>tbody>tr:nth-child(2n+1){
+  background: rgb(185, 117, 117);
+}
+
+.selected{
+  display: flex;
+  align-items: center;
+  padding:20px;
+  background: rgb(254, 197, 197);
+  height: max-content;
+  min-height: 20vh;
+  flex-direction: column;
+  gap: 30px;
+}
+tr{
+  background-color: #f1f1f1;
+}
+
+input{
+  padding: 4px;
+  width: 15vw;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(211, 134, 134);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(239, 186, 186);
 }
