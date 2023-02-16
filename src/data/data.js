@@ -6356,7 +6356,6 @@ const data = {
       "Silicea 200x",
     ],
     "Bio Combinations": [
-      [
         "BC 1 Anaemia",
         "BC 2 Asthma",
         "BC 3 Colic",
