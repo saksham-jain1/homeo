@@ -3,16 +3,7 @@
   height: max-content;
   min-height: 100vh;
   width: 100vw;
-}
-.header{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  width: 100%;
-  height: 80px;
-  box-shadow: 0 0 15px 0 black;
-  border-radius: 0 0 7px 7px;
+  overflow-y: hidden;
 }
 
 .selectors{
@@ -52,13 +43,14 @@ input:hover,select:hover{
 }
 
 .table{
-  padding: 30px;
-  width: 98%;
+  padding: 20px;
+  width: 80%;
   height: 50vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   background: white;
-  margin: auto;
 }
+
 
 table,td,th{
   padding: 10px;
@@ -66,6 +58,7 @@ table,td,th{
   border-collapse: collapse;
   width: 100%;
   cursor: pointer;
+  word-break: normal;
 }
 .table>table>tbody>tr:nth-child(2n+1){
   background: rgb(185, 117, 117);
@@ -86,9 +79,45 @@ tr{
 }
 
 input{
-  padding: 4px;
+  padding: 5px;
   width: 15vw;
 }
+.createOrder{
+  display: flex;
+  justify-content: space-around;
+  
+  
+}
+button{
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 15px;
+  box-shadow: 2px 2px 5px black;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+button:active{
+  transform: translate(1px,3px);
+}
+button:first-child{
+  background: rgb(51, 253, 0);
+}
+button:last-child{
+  background: rgb(255, 255, 48);
+}
+
+#download
+{
+  background: #fff;
+  padding:20px;
+}
+dt{
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 5px 10px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
