@@ -1,31 +1,42 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { company, category, data } from "./data/data";
+import { data } from "./data/data";
 import { toPng } from "html-to-image";
 
 function App() {
-  const [selectedCompany, setSelectedCompany] = useState("SBL");
-  const [selectedCategory, setSelectedCategory] = useState("Dilution");
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMed, setSelectedMed] = useState(
     JSON.parse(localStorage.getItem("medData")) || {
-      SBL: [],
-      WHEEZAL: [],
-      RALSON: [],
-      "NEW LIFE": [],
-      BJAIN: [],
-      HSL: [],
-      RECKEWEG: [],
-      GERMANY: [],
+      SBL: {},
+      "Dr Willmar Schwabe India": {},
+      Adel: {},
+      BJAIN: {},
+      "Bakson's": {},
+      Allen: {},
+      WHEEZAL: {},
+      Medisynth: {},
+      "Dr Bakshi Bakson": {},
+      RALSON: {},
+      "NEW LIFE": {},
+      HSL: {},
+      RECKEWEG: {},
+      HAPDCO: {},
+      BHP: {},
+      Hahnemann: {},
+      REPL: {},
+      Lords: {},
+      Healwell: {},
     }
   );
-  const ref = useRef(0)
+  const ref = useRef(0);
 
   useEffect(() => {
     localStorage.setItem("medData", JSON.stringify(selectedMed));
   }, [selectedMed]);
 
-  const updateQuantity = (i, item,comp) => {
+  const updateQuantity = (i, item, comp) => {
     const temp = { ...selectedMed };
     temp[comp][item].quantity = parseInt(i);
     setSelectedMed(temp);
@@ -39,7 +50,7 @@ function App() {
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
         const d = new Date();
-        const date = `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`
+        const date = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
         const link = document.createElement("a");
         link.download = `order-list ${date}.png`;
         link.href = dataUrl;
@@ -49,17 +60,28 @@ function App() {
         console.log(err);
       });
   };
- 
+
   const ResetAll = () => {
     setSelectedMed({
-      SBL: [],
-      WHEEZAL: [],
-      RALSON: [],
-      "NEW LIFE": [],
-      BJAIN: [],
-      HSL: [],
-      RECKEWEG: [],
-      GERMANY: [],
+  "SBL":{},
+  "Dr Willmar Schwabe India":{},
+  "Adel":{},
+  "BJAIN":{},
+  "Bakson's":{},
+  "Allen":{},
+  "WHEEZAL":{},
+  "Medisynth":{},
+  "Dr Bakshi Bakson":{},
+  "RALSON":{},
+  "NEW LIFE":{},
+  "HSL":{},
+  "RECKEWEG":{},
+  "HAPDCO":{},
+  "BHP":{},
+  "Hahnemann":{},
+  "REPL":{},
+  "Lords":{},
+  "Healwell":{},
     });
   };
 
@@ -72,9 +94,12 @@ function App() {
             name="company"
             id="company"
             value={selectedCompany}
-            onChange={(e) => setSelectedCompany(e.target.value)}
+            onChange={(e) => {setSelectedCompany(e.target.value); setSelectedCategory("")}}
           >
-            {company.map((item) => (
+            <option key="Medicine" value="">
+              Select Company
+            </option>
+            {Object.keys(data).map((item) => (
               <option key={item} value={item}>
                 {item}
               </option>
@@ -82,19 +107,26 @@ function App() {
           </select>
         </div>
         <div>
-          <label htmlFor="category">Select Category:</label>
-          <select
-            name="category"
-            id="category"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            {category[selectedCompany].map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+          {selectedCompany && (
+            <>
+              <label htmlFor="category">Select Category:</label>
+              <select
+                name="category"
+                id="category"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                <option key="Medicine" value="">
+                  Select Category
+                </option>
+                {Object.keys(data[selectedCompany]).map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
         </div>
         <div className="search">
           <label htmlFor="search">Search: </label>
@@ -109,67 +141,69 @@ function App() {
         </div>
       </div>
       <div className="table">
-        <table>
-          <tbody>
-            {data[selectedCompany][selectedCategory].map((item) => {
-              if (searchQuery === "")
-                return (
-                  <tr
-                    key={item}
-                    style={{
-                      background: selectedMed[selectedCompany][item]
-                        ? "limegreen"
-                        : "",
-                    }}
-                  >
-                    <td
+        {selectedCompany && selectedCategory && (
+          <table>
+            <tbody>
+              {data[selectedCompany][selectedCategory].map((item) => {
+                if (searchQuery === "")
+                  return (
+                    <tr
                       key={item}
-                      onClick={() => {
-                        var temp = { ...selectedMed[selectedCompany] };
-                        if (!temp[item])
-                          temp = { ...temp, [item]: { quantity: 0 } };
-                        else delete temp[item];
-                        setSelectedMed({
-                          ...selectedMed,
-                          [selectedCompany]: temp,
-                        });
+                      style={{
+                        background: selectedMed[selectedCompany][item]
+                          ? "limegreen"
+                          : "",
                       }}
                     >
-                      {item}
-                    </td>
-                  </tr>
-                );
-              else if (item.toLowerCase().includes(searchQuery.toLowerCase()))
-                return (
-                  <tr
-                    key={item}
-                    style={{
-                      background: selectedMed[selectedCompany][item]
-                        ? "limegreen"
-                        : "",
-                    }}
-                  >
-                    <td
+                      <td
+                        key={item}
+                        onClick={() => {
+                          var temp = { ...selectedMed[selectedCompany] };
+                          if (!temp[item])
+                            temp = { ...temp, [item]: { quantity: 0 } };
+                          else delete temp[item];
+                          setSelectedMed({
+                            ...selectedMed,
+                            [selectedCompany]: temp,
+                          });
+                        }}
+                      >
+                        {item}
+                      </td>
+                    </tr>
+                  );
+                else if (item.toLowerCase().includes(searchQuery.toLowerCase()))
+                  return (
+                    <tr
                       key={item}
-                      onClick={() => {
-                        var temp = { ...selectedMed[selectedCompany] };
-                        if (!temp[item])
-                          temp = { ...temp, [item]: { quantity: 0 } };
-                        else delete temp[item];
-                        setSelectedMed({
-                          ...selectedMed,
-                          [selectedCompany]: temp,
-                        });
+                      style={{
+                        background: selectedMed[selectedCompany][item]
+                          ? "limegreen"
+                          : "",
                       }}
                     >
-                      {item}
-                    </td>
-                  </tr>
-                );
-              return null;
-            })}
-          </tbody>
-        </table>
+                      <td
+                        key={item}
+                        onClick={() => {
+                          var temp = { ...selectedMed[selectedCompany] };
+                          if (!temp[item])
+                            temp = { ...temp, [item]: { quantity: 0 } };
+                          else delete temp[item];
+                          setSelectedMed({
+                            ...selectedMed,
+                            [selectedCompany]: temp,
+                          });
+                        }}
+                      >
+                        {item}
+                      </td>
+                    </tr>
+                  );
+                return null;
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
       <div className="selected">
         <h1>Selected Medicines</h1>
@@ -185,7 +219,9 @@ function App() {
               return Object.keys(selectedMed[it]).map((item) => {
                 return (
                   <tr key={item}>
-                    <td>{item} &emsp;- &emsp; {it}</td>
+                    <td>
+                      {item} &emsp;- &emsp; {it}
+                    </td>
                     <td>
                       <input
                         type="number"
@@ -206,7 +242,7 @@ function App() {
         </table>
       </div>
       <div className="createOrder">
-        <button onClick={(e)=> download()}>Create Order</button>
+        <button onClick={(e) => download()}>Create Order</button>
         <button onClick={(e) => ResetAll()}>Reset All Selected</button>
       </div>
       <div ref={ref} id="download">
@@ -217,13 +253,14 @@ function App() {
           {Object.keys(selectedMed).map((item) => {
             const data = (
               <span key={item}>
-                <dt key={item}>{selectedMed[item].length !== 0 ? item : ""}</dt>
+                <dt key={item}>{Object.keys(selectedMed[item]).length !== 0 ? item : ""}</dt>
                 {Object.keys(selectedMed[item]).map((it) => {
-                  return (
-                    <dd key={it}>
-                      {it}&emsp;-&emsp;{selectedMed[item][it].quantity}
-                    </dd>
-                  );
+                  if (selectedMed[item][it].quantity>0)
+                    return (
+                      <dd key={it}>
+                        {it}&emsp;-&emsp;{selectedMed[item][it].quantity}
+                      </dd>
+                    );
                 })}
               </span>
             );
