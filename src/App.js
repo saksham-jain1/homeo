@@ -11,7 +11,7 @@ function App() {
     JSON.parse(localStorage.getItem("medData")) || {
       SBL: {},
       "Dr Willmar Schwabe India": {},
-      Adel: {},
+      ADEL: {},
       BJAIN: {},
       "Bakson's": {},
       Allen: {},
@@ -63,26 +63,31 @@ function App() {
 
   const ResetAll = () => {
     setSelectedMed({
-  "SBL":{},
-  "Dr Willmar Schwabe India":{},
-  "Adel":{},
-  "BJAIN":{},
-  "Bakson's":{},
-  "Allen":{},
-  "WHEEZAL":{},
-  "Medisynth":{},
-  "Dr Bakshi Bakson":{},
-  "RALSON":{},
-  "NEW LIFE":{},
-  "HSL":{},
-  "RECKEWEG":{},
-  "HAPDCO":{},
-  "BHP":{},
-  "Hahnemann":{},
-  "REPL":{},
-  "Lords":{},
-  "Healwell":{},
+      SBL: {},
+      "Dr Willmar Schwabe India": {},
+      ADEL: {},
+      BJAIN: {},
+      "Bakson's": {},
+      Allen: {},
+      WHEEZAL: {},
+      Medisynth: {},
+      "Dr Bakshi Bakson": {},
+      RALSON: {},
+      "NEW LIFE": {},
+      HSL: {},
+      RECKEWEG: {},
+      HAPDCO: {},
+      BHP: {},
+      Hahnemann: {},
+      REPL: {},
+      Lords: {},
+      Healwell: {},
     });
+  };
+  const getSatus = (i) => {
+    for(let it in i)
+    {if (i[it].quantity > 0) return true;}
+    return false;
   };
 
   return (
@@ -94,7 +99,10 @@ function App() {
             name="company"
             id="company"
             value={selectedCompany}
-            onChange={(e) => {setSelectedCompany(e.target.value); setSelectedCategory("")}}
+            onChange={(e) => {
+              setSelectedCompany(e.target.value);
+              setSelectedCategory("");
+            }}
           >
             <option key="Medicine" value="">
               Select Company
@@ -144,7 +152,7 @@ function App() {
         {selectedCompany && selectedCategory && (
           <table>
             <tbody>
-              {data[selectedCompany][selectedCategory].map((item) => {
+              {data[selectedCompany][selectedCategory].map((item, index) => {
                 if (searchQuery === "")
                   return (
                     <tr
@@ -155,6 +163,7 @@ function App() {
                           : "",
                       }}
                     >
+                      <td>{index+1}</td>
                       <td
                         key={item}
                         onClick={() => {
@@ -253,14 +262,18 @@ function App() {
           {Object.keys(selectedMed).map((item) => {
             const data = (
               <span key={item}>
-                <dt key={item}>{Object.keys(selectedMed[item]).length !== 0 ? item : ""}</dt>
+                {
+                  getSatus(selectedMed[item]) && <dt key={item}>
+                  {item}
+                </dt>}
                 {Object.keys(selectedMed[item]).map((it) => {
-                  if (selectedMed[item][it].quantity>0)
+                  if (selectedMed[item][it].quantity > 0)
                     return (
                       <dd key={it}>
                         {it}&emsp;-&emsp;{selectedMed[item][it].quantity}
                       </dd>
                     );
+                    return "";
                 })}
               </span>
             );

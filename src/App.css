@@ -1,4 +1,4 @@
-.App{
+.App {
   background: rgb(185, 117, 117);
   height: max-content;
   min-height: 100vh;
@@ -6,7 +6,7 @@
   overflow-y: hidden;
 }
 
-.selectors{
+.selectors {
   display: flex;
   padding: 30px;
   font-size: 1.2rem;
@@ -14,35 +14,36 @@
   box-shadow: 0 2px 5px 0 black;
 }
 
-.selectors>div{ 
+.selectors > div {
   padding: 20px;
 }
-.selectors>div>label{
+.selectors > div > label {
   padding: 0px 10px;
 }
 
-.search{
+.search {
   width: 100%;
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.search>input{
-  height:40px;
+.search > input {
+  height: 40px;
   width: 50%;
   min-width: 200px;
   border-radius: 15px;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   padding: 10px;
 }
 
-input:hover,select:hover{
+input:hover,
+select:hover {
   cursor: pointer;
 }
 
-.table{
+.table {
   padding: 20px;
   width: 80%;
   height: 50vh;
@@ -51,44 +52,49 @@ input:hover,select:hover{
   background: white;
 }
 
-
-table,td,th{
-  padding: 10px;
-  border: 2px solid black;
+table {
   border-collapse: collapse;
-  width: 100%;
+}
+
+.table table,
+td,
+th {
+  border: 2px solid black;
+  padding: 10px;
+  min-width: max-content;
   cursor: pointer;
   word-break: normal;
 }
-.table>table>tbody>tr:nth-child(2n+1){
+.table > table > tbody > tr:nth-child(2n + 1) {
   background: rgb(185, 117, 117);
 }
+.table td:nth-child(2){
+  width: 100%;
+}
 
-.selected{
+.selected {
   display: flex;
   align-items: center;
-  padding:20px;
+  padding: 20px;
   background: rgb(254, 197, 197);
   height: max-content;
   min-height: 20vh;
   flex-direction: column;
   gap: 30px;
 }
-tr{
+tr {
   background-color: #f1f1f1;
 }
 
-input{
+input {
   padding: 5px;
   width: 15vw;
 }
-.createOrder{
+.createOrder {
   display: flex;
   justify-content: space-around;
-  
-  
 }
-button{
+button {
   padding: 10px 20px;
   cursor: pointer;
   margin: 15px;
@@ -97,22 +103,21 @@ button{
   border: none;
   font-size: 16px;
 }
-button:active{
-  transform: translate(1px,3px);
+button:active {
+  transform: translate(1px, 3px);
 }
-button:first-child{
+button:first-child {
   background: rgb(51, 253, 0);
 }
-button:last-child{
+button:last-child {
   background: rgb(255, 255, 48);
 }
 
-#download
-{
+#download {
   background: #fff;
-  padding:20px;
+  padding: 20px;
 }
-dt{
+dt {
   font-size: 1rem;
   font-weight: bold;
   margin: 5px 10px;
