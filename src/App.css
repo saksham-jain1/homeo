@@ -45,7 +45,7 @@ select:hover {
 
 .table {
   padding: 20px;
-  width: 80%;
+  width: 80vw;
   height: 50vh;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -54,6 +54,7 @@ select:hover {
 
 table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 .table table,
@@ -61,15 +62,11 @@ td,
 th {
   border: 2px solid black;
   padding: 10px;
-  min-width: max-content;
   cursor: pointer;
   word-break: normal;
 }
-.table > table > tbody > tr:nth-child(2n + 1) {
+.table tr:nth-child(2n + 1) {
   background: rgb(185, 117, 117);
-}
-.table td:nth-child(2){
-  width: 100%;
 }
 
 .selected {
