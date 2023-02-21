@@ -45,7 +45,7 @@ select:hover {
 
 .table {
   padding: 20px;
-  width: 80vw;
+  width: 85vw;
   height: 50vh;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -54,16 +54,17 @@ select:hover {
 
 table {
   border-collapse: collapse;
-  width: 100%;
 }
 
 .table table,
 td,
 th {
+  max-width: 100%;
+  min-width: 60px;
   border: 2px solid black;
   padding: 10px;
   cursor: pointer;
-  word-break: normal;
+  word-break: break-all;
 }
 .table tr:nth-child(2n + 1) {
   background: rgb(185, 117, 117);
@@ -122,7 +123,7 @@ dt {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 15px;
 }
 
 /* Track */
@@ -133,6 +134,7 @@ dt {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(211, 134, 134);
+  border-radius: 2px;
 }
 
 /* Handle on hover */

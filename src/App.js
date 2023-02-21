@@ -181,7 +181,7 @@ function App() {
                       </td>
                     </tr>
                   );
-                else if (item.toLowerCase().includes(searchQuery.toLowerCase()))
+                else if (item.toLowerCase().includes(searchQuery.toLowerCase().trim()))
                   return (
                     <tr
                       key={item}
@@ -191,6 +191,7 @@ function App() {
                           : "",
                       }}
                     >
+                      <td>{index + 1}</td>
                       <td
                         key={item}
                         onClick={() => {
