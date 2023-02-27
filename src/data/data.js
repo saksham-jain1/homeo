@@ -22102,7 +22102,6 @@ const data = {
   BHP: {},
   Hahnemann: {},
   REPL: {},
-  Lords: {},
   Healwell: {},
 };
 
