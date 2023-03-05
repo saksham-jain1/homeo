@@ -10,7 +10,7 @@ function App() {
   const [selectedMed, setSelectedMed] = useState(
     JSON.parse(localStorage.getItem("medData")) || {
       SBL: {},
-      "Dr Willmar Schwabe India": {},
+      "Schwabe India": {},
       ADEL: {},
       BJAIN: {},
       "Bakson's": {},
