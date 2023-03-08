@@ -1,0 +1,75 @@
+.selector {
+  display: flex;
+  padding: 0px 30px;
+  font-size: 1.2rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 5px 0 black;
+  position: relative;
+  justify-content: center;
+  height: 10vh;
+}
+.links {
+  position: absolute;
+  top: -5px;
+  right: 7px;
+  float: right;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+.links svg {
+  height: 24px;
+  width: 24px;
+  color: black;
+}
+.prevOrders {
+  height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.prevOrder{
+  border: 2px solid black;
+  margin: 20px 30px;
+}
+.prevOrder > .head {
+  background: #fff;
+  padding: 10px 20px;
+  border-bottom: 2px solid black;
+}
+h2 {
+  margin-top: 0px;
+}
+
+input[type="checkbox"] {
+  height: 24px;
+  width: 24px;
+  border-radius: 50px;
+  accent-color: #3aff44;
+}
+.prevOrder>.footer{
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.prevOrder>.footer>svg{
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+  color: black;
+  background: red;
+  border-radius: 20px;
+  padding: 5px;
+}
+.prevOrders>.footer{
+  border: 2px solid black;
+  width: 100%;
+  position: sticky;
+  bottom: 0px;
+  background: #b97575;
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
