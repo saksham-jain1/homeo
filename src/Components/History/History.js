@@ -6,7 +6,7 @@ import "./History.css";
 
 const History = () => {
   const [data, setData] = useState(
-    JSON.parse(localStorage.getItem("prevOrderData"))
+    JSON.parse(localStorage.getItem("prevOrderData")) || {}
   );
   let navigate = useNavigate();
 
