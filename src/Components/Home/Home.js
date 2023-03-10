@@ -248,7 +248,7 @@ const Home = () => {
               return Object.keys(selectedMed[it]).map((item) => {
                 return (
                   <tr key={item}>
-                    <td>{item}</td>
+                    <td>{item} - {it}</td>
                     <td>
                       <input
                         type="number"
@@ -276,7 +276,6 @@ const Home = () => {
         <center>
           <h2>Order</h2>
         </center>
-        <div className="date">Current</div>
         <dl>
           {Object.keys(selectedMed).map((item) => {
             const medList = Object.keys(selectedMed[item]).map((it) => {
