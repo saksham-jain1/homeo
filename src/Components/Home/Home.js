@@ -12,23 +12,23 @@ const Home = () => {
   const [selectedMed, setSelectedMed] = useState(
     JSON.parse(localStorage.getItem("medData")) || {
       SBL: {},
-      "Schwabe India": {},
-      ADEL: {},
-      BJAIN: {},
-      "Bakson's": {},
-      Allen: {},
-      WHEEZAL: {},
-      Medisynth: {},
-      "Dr Bakshi Bakson": {},
-      RALSON: {},
-      "NEW LIFE": {},
       HSL: {},
       RECKEWEG: {},
+      Allen: {},
+      ADEL: {},
+      Lords: {},
+      BJAIN: {},
+      "Schwabe India": {},
+      "Bakson's": {},
+      RALSON: {},
+      Adven: {},
+      WHEEZAL: {},
+      Medisynth: {},
+      "NEW LIFE": {},
       HAPDCO: {},
       BHP: {},
       Hahnemann: {},
       REPL: {},
-      Lords: {},
       Healwell: {},
     }
   );
@@ -82,7 +82,6 @@ const Home = () => {
         Allen: {},
         WHEEZAL: {},
         Medisynth: {},
-        "Dr Bakshi Bakson": {},
         RALSON: {},
         "NEW LIFE": {},
         HSL: {},
@@ -248,7 +247,9 @@ const Home = () => {
               return Object.keys(selectedMed[it]).map((item) => {
                 return (
                   <tr key={item}>
-                    <td>{item} - {it}</td>
+                    <td>
+                      {item} - {it}
+                    </td>
                     <td>
                       <input
                         type="number"
