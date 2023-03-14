@@ -175,7 +175,7 @@ const Home = () => {
                     <tr
                       key={item}
                       style={{
-                        background: selectedMed[selectedCompany][item]
+                        background: selectedMed[selectedCompany] && selectedMed[selectedCompany][item]
                           ? "limegreen"
                           : "",
                       }}
@@ -205,7 +205,7 @@ const Home = () => {
                     <tr
                       key={item}
                       style={{
-                        background: selectedMed[selectedCompany][item]
+                        background: selectedMed[selectedCompany]&&selectedMed[selectedCompany][item]
                           ? "limegreen"
                           : "",
                       }}
@@ -245,30 +245,37 @@ const Home = () => {
           </thead>
           <>
             {Object.keys(selectedMed).map((it) => {
-              if(Object.keys(selectedMed[it]).length!==0)
-              return <tbody key={it}>
-              <tr key={it} style={{background:'black',color:'white'}} ><td colSpan={2}>{it}</td></tr>
-              {Object.keys(selectedMed[it]).map((item) => {
+              if (Object.keys(selectedMed[it]).length !== 0)
                 return (
-                  <tr key={item}>
-                    <td>
-                      {item}
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        value={selectedMed[it][item].quantity}
-                        onChange={(e) =>
-                          updateQuantity(e.target.value, item, it)
-                        }
-                        min={0}
-                        name="quantity"
-                        id="quantity"
-                      />
-                    </td>
-                  </tr>
+                  <tbody key={it}>
+                    <tr
+                      key={it}
+                      style={{ background: "black", color: "white" }}
+                    >
+                      <td colSpan={2}>{it}</td>
+                    </tr>
+                    {Object.keys(selectedMed[it]).map((item) => {
+                      return (
+                        <tr key={item}>
+                          <td>{item}</td>
+                          <td>
+                            <input
+                              type="number"
+                              value={selectedMed[it][item].quantity}
+                              onChange={(e) =>
+                                updateQuantity(e.target.value, item, it)
+                              }
+                              min={0}
+                              name="quantity"
+                              id="quantity"
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                 );
-              })}</tbody>
+              return "";
             })}
           </>
         </table>
