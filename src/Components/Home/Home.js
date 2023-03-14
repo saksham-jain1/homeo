@@ -75,22 +75,23 @@ const Home = () => {
     if (window.confirm("Remove All") === true)
       setSelectedMed({
         SBL: {},
-        "Dr Willmar Schwabe India": {},
-        ADEL: {},
-        BJAIN: {},
-        "Bakson's": {},
-        Allen: {},
-        WHEEZAL: {},
-        Medisynth: {},
-        RALSON: {},
-        "NEW LIFE": {},
         HSL: {},
         RECKEWEG: {},
+        Allen: {},
+        ADEL: {},
+        Lords: {},
+        BJAIN: {},
+        "Schwabe India": {},
+        "Bakson's": {},
+        RALSON: {},
+        Adven: {},
+        WHEEZAL: {},
+        Medisynth: {},
+        "NEW LIFE": {},
         HAPDCO: {},
         BHP: {},
         Hahnemann: {},
         REPL: {},
-        Lords: {},
         Healwell: {},
       });
   };
@@ -242,13 +243,16 @@ const Home = () => {
               <th>Quantity</th>
             </tr>
           </thead>
-          <tbody>
+          <>
             {Object.keys(selectedMed).map((it) => {
-              return Object.keys(selectedMed[it]).map((item) => {
+              if(Object.keys(selectedMed[it]).length!==0)
+              return <tbody key={it}>
+              <tr key={it} style={{background:'black',color:'white'}} ><td colSpan={2}>{it}</td></tr>
+              {Object.keys(selectedMed[it]).map((item) => {
                 return (
                   <tr key={item}>
                     <td>
-                      {item} - {it}
+                      {item}
                     </td>
                     <td>
                       <input
@@ -264,9 +268,9 @@ const Home = () => {
                     </td>
                   </tr>
                 );
-              });
+              })}</tbody>
             })}
-          </tbody>
+          </>
         </table>
       </div>
       <div className="createOrder">
