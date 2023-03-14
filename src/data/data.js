@@ -18904,12 +18904,6 @@ const data = {
       "VARICOSE-VEIN",
       "SNORID 30ML DROPS",
       "QUININE SOLUTION(MALARIA FEVER)",
-      "DENGIN SOLUTION (PREVENTIVE TREATMENT DENGUE)",
-      "HERNIA DROPS",
-      "HYDROCELE DROPS",
-      "URIC ACID DROPS",
-      "GAUTERIA GAUMERI",
-      "Garlo Sep Drop",
     ],
     Biochemics: [
       "Calcarea Flour 3x",
