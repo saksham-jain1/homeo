@@ -59,11 +59,6 @@ const Home = () => {
         link.download = `order-list ${date}.png`;
         link.href = dataUrl;
         link.click();
-        const prevOrderData = JSON.parse(localStorage.getItem("prevOrderData"));
-        localStorage.setItem(
-          "prevOrderData",
-          JSON.stringify({ ...prevOrderData, [date]: selectedMed })
-        );
         ResetAll();
       })
       .catch((err) => {
@@ -72,7 +67,17 @@ const Home = () => {
   };
 
   const ResetAll = () => {
-    if (window.confirm("Remove All") === true)
+    const d = new Date();
+    const date = `${d.toLocaleTimeString()} ${d.getDate()}-${
+      d.getMonth() + 1
+    }-${d.getFullYear()}`;
+
+    const prevOrderData = JSON.parse(localStorage.getItem("prevOrderData"));
+    localStorage.setItem(
+      "prevOrderData",
+      JSON.stringify({ ...prevOrderData, [date]: selectedMed })
+    );
+    if (window.confirm("Remove All") === true) {
       setSelectedMed({
         SBL: {},
         HSL: {},
@@ -94,6 +99,7 @@ const Home = () => {
         REPL: {},
         Healwell: {},
       });
+    }
   };
   const getSatus = (i) => {
     for (let it in i) {
@@ -175,9 +181,11 @@ const Home = () => {
                     <tr
                       key={item}
                       style={{
-                        background: selectedMed[selectedCompany] && selectedMed[selectedCompany][item]
-                          ? "limegreen"
-                          : "",
+                        background:
+                          selectedMed[selectedCompany] &&
+                          selectedMed[selectedCompany][item]
+                            ? "limegreen"
+                            : "",
                       }}
                     >
                       <td>{index + 1}</td>
@@ -205,9 +213,11 @@ const Home = () => {
                     <tr
                       key={item}
                       style={{
-                        background: selectedMed[selectedCompany]&&selectedMed[selectedCompany][item]
-                          ? "limegreen"
-                          : "",
+                        background:
+                          selectedMed[selectedCompany] &&
+                          selectedMed[selectedCompany][item]
+                            ? "limegreen"
+                            : "",
                       }}
                     >
                       <td>{index + 1}</td>
