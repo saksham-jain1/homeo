@@ -30529,7 +30529,6 @@ const data = {
       "Angio Card Gold Plus",
       "Angiocard Gold Plus",
       "Aqui Folium",
-      "Aspidosperma Q",
       "Dermoline Oral",
       "Femacol",
       "Gasgan Forte",
@@ -30565,6 +30564,7 @@ const data = {
       "Nasaltone Q Tablet",
       "Phytofit Tablet",
       "Pilen Tablet",
+      "Passifiya Tablet",
       "Tonsilon Tablet",
       "Wartex Tablet",
     ],
@@ -30585,7 +30585,6 @@ const data = {
     Other: [
       "Alphamart Forte Malt 250gm",
       "Alphamart Forte Malt 450gm",
-      "Cod Liver Oil Capsule 100 capsule",
     ],
   },
   RALSON: {
