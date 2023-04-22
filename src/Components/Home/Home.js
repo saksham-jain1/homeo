@@ -36,11 +36,12 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem("medData", JSON.stringify(selectedMed));
+    console.log(selectedMed);
   }, [selectedMed]);
 
-  const updateQuantity = (i, item, comp) => {
+  const updateQuantity = (i, item, cat, comp) => {
     const temp = { ...selectedMed };
-    temp[comp][item].quantity = parseInt(i);
+    temp[comp][cat][item].quantity = parseInt(i);
     setSelectedMed(temp);
   };
 
@@ -101,11 +102,20 @@ const Home = () => {
       });
     }
   };
-  const getSatus = (i) => {
-    for (let it in i) {
-      if (i[it].quantity > 0) return true;
-    }
-    return false;
+
+  const handleAdd = (item) => {
+    var temp = { ...selectedMed[selectedCompany] };
+    if (!temp[selectedCategory] || !temp[selectedCategory][item])
+      temp = {
+        ...temp,
+        [selectedCategory]: {
+          ...temp[selectedCategory],
+          [item]: { quantity: 0 },
+        },
+      };
+    else delete temp[selectedCategory][item];
+    console.log(temp);
+    setSelectedMed({ ...selectedMed, [selectedCompany]: temp });
   };
 
   return (
@@ -183,25 +193,14 @@ const Home = () => {
                       style={{
                         background:
                           selectedMed[selectedCompany] &&
-                          selectedMed[selectedCompany][item]
+                          selectedMed[selectedCompany][selectedCategory] &&
+                          selectedMed[selectedCompany][selectedCategory][item]
                             ? "limegreen"
                             : "",
                       }}
                     >
                       <td>{index + 1}</td>
-                      <td
-                        key={item}
-                        onClick={() => {
-                          var temp = { ...selectedMed[selectedCompany] };
-                          if (!temp[item])
-                            temp = { ...temp, [item]: { quantity: 0 } };
-                          else delete temp[item];
-                          setSelectedMed({
-                            ...selectedMed,
-                            [selectedCompany]: temp,
-                          });
-                        }}
-                      >
+                      <td key={item} onClick={() => handleAdd(item)}>
                         {item}
                       </td>
                     </tr>
@@ -215,25 +214,14 @@ const Home = () => {
                       style={{
                         background:
                           selectedMed[selectedCompany] &&
+                          selectedMed[selectedCompany][selectedCategory] &&
                           selectedMed[selectedCompany][item]
                             ? "limegreen"
                             : "",
                       }}
                     >
                       <td>{index + 1}</td>
-                      <td
-                        key={item}
-                        onClick={() => {
-                          var temp = { ...selectedMed[selectedCompany] };
-                          if (!temp[item])
-                            temp = { ...temp, [item]: { quantity: 0 } };
-                          else delete temp[item];
-                          setSelectedMed({
-                            ...selectedMed,
-                            [selectedCompany]: temp,
-                          });
-                        }}
-                      >
+                      <td key={item} onClick={() => handleAdd(item)}>
                         {item}
                       </td>
                     </tr>
@@ -257,35 +245,52 @@ const Home = () => {
             {Object.keys(selectedMed).map((it) => {
               if (Object.keys(selectedMed[it]).length !== 0)
                 return (
-                  <tbody key={it}>
+                  <tbody key={it + "1"}>
                     <tr
-                      key={it}
+                      key={it + "2"}
                       style={{ background: "black", color: "white" }}
                     >
                       <td colSpan={2}>{it}</td>
                     </tr>
                     {Object.keys(selectedMed[it]).map((item) => {
-                      return (
-                        <tr key={item}>
-                          <td>{item}</td>
-                          <td>
-                            <input
-                              type="number"
-                              value={selectedMed[it][item].quantity}
-                              onChange={(e) =>
-                                updateQuantity(e.target.value, item, it)
-                              }
-                              min={0}
-                              name="quantity"
-                              id="quantity"
-                            />
-                          </td>
-                        </tr>
-                      );
+                      if (Object.keys(selectedMed[it][item]).length !== 0)
+                        return (
+                          <span key={item+"1"}>
+                            <tr
+                              key={item}
+                              style={{ background: "#ba3b0a", color: "white" }}
+                            >
+                              <td colSpan={2}>{item}</td>
+                            </tr>
+                            {Object.keys(selectedMed[it][item]).map((i) => {
+                              return (
+                                <tr key={i}>
+                                  <td>{i}</td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      value={selectedMed[it][item][i].quantity}
+                                      onChange={(e) =>
+                                        updateQuantity(
+                                          e.target.value,
+                                          i,
+                                          item,
+                                          it
+                                        )
+                                      }
+                                      min={0}
+                                      name="quantity"
+                                      id="quantity"
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </span>
+                        );
                     })}
                   </tbody>
                 );
-              return "";
             })}
           </>
         </table>
@@ -300,29 +305,34 @@ const Home = () => {
         </center>
         <dl>
           {Object.keys(selectedMed).map((item) => {
-            const medList = Object.keys(selectedMed[item]).map((it) => {
-              if (selectedMed[item][it].quantity > 0)
+            const data = Object.keys(selectedMed[item]).map((it) => {
+              if (it.length) {
+                let dataList = Object.keys(selectedMed[item][it]).map((i) => {
+                  if (i.length && selectedMed[item][it][i].quantity > 0)
+                    return (
+                      <dd key={i}>
+                        {i}&emsp;-&emsp;{selectedMed[item][it][i].quantity}
+                      </dd>
+                    );
+                  return null;
+                });
                 return (
-                  <dd key={it}>
-                    {it}&emsp;-&emsp;{selectedMed[item][it].quantity}
-                  </dd>
-                );
-              return "";
-            });
-            const data = (
-              <span key={item}>
-                {getSatus(selectedMed[item]) && (
-                  <details open>
-                    <summary></summary>
-                    <p>
-                      <dt>{item}</dt>
-                      {medList}
-                    </p>
+                  <details key={it} open>
+                    <summary>{it}</summary>
+                    <p>{dataList}</p>
                   </details>
-                )}
-              </span>
-            );
-            return data;
+                );
+              }
+              return null;
+            });
+            if (data.length)
+              return (
+                <details key={item} open>
+                  <summary>{item}</summary>
+                  <dd>{data}</dd>
+                </details>
+              );
+            return null;
           })}
         </dl>
       </div>
