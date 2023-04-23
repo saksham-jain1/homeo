@@ -15,13 +15,6 @@ const History = () => {
     localStorage.setItem("prevOrderData", JSON.stringify(data));
   }, [data]);
 
-  const getSatus = (i) => {
-    for (let it in i) {
-      if (i[it].quantity > 0) return true;
-    }
-    return false;
-  };
-
   const changeSelected = (e) => {
     if (e.target.checked) {
       setSelectedOrders([...selectedOrders, e.target.id]);
@@ -35,28 +28,27 @@ const History = () => {
   };
 
   const mergeSelected = () => {
-    if (selectedOrders.length===0) 
-      return;
+    if (selectedOrders.length === 0) return;
 
     const newData = {
       SBL: {},
-      "Dr Willmar Schwabe India": {},
-      ADEL: {},
-      BJAIN: {},
-      "Bakson's": {},
-      Allen: {},
-      WHEEZAL: {},
-      Medisynth: {},
-      "Dr Bakshi Bakson": {},
-      RALSON: {},
-      "NEW LIFE": {},
       HSL: {},
       RECKEWEG: {},
+      Allen: {},
+      ADEL: {},
+      Lords: {},
+      BJAIN: {},
+      "Schwabe India": {},
+      "Bakson's": {},
+      RALSON: {},
+      Adven: {},
+      WHEEZAL: {},
+      Medisynth: {},
+      "NEW LIFE": {},
       HAPDCO: {},
       BHP: {},
       Hahnemann: {},
       REPL: {},
-      Lords: {},
       Healwell: {},
     };
     for (let j in selectedOrders) {
@@ -66,28 +58,43 @@ const History = () => {
           Object.keys(data[selectedOrders[j]][i]).length !== 0
         ) {
           for (let k in data[selectedOrders[j]][i]) {
-            if (!newData[i][k]) {
-              newData[i][k] = data[selectedOrders[j]][i][k];
-            } else {
-              newData[i][k].quantity += data[selectedOrders[j]][i][k].quantity;
+            if (
+              data[selectedOrders[j]][i][k] &&
+              Object.keys(data[selectedOrders[j]][i][k]).length !== 0
+            ) {
+              for (let l in data[selectedOrders[j]][i][k]) {
+                if (!newData[i][k]) {
+                  newData[i][k] = { [l]: data[selectedOrders[j]][i][k][l] };
+                } else if (!newData[i][k][l]) {
+                  newData[i][k][l] = data[selectedOrders[j]][i][k][l];
+                } else {
+                  newData[i][k][l].quantity +=
+                    data[selectedOrders[j]][i][k][l].quantity;
+                }
+              }
             }
           }
         }
       }
     }
-    deleteSelected();
+    const temp = { ...data };
+    for (let i in selectedOrders) delete temp[selectedOrders[i]];
+    setSelectedOrders([]);
+    setData({ ...temp });
     const d = new Date();
     const date = `${d.toLocaleTimeString()} ${d.getDate()}-${
       d.getMonth() + 1
     }-${d.getFullYear()}`;
     const selectedMed = JSON.parse(localStorage.getItem("medData"));
-    setData({ ...data, [date]: selectedMed });
+    setData({ ...temp, [date]: selectedMed });
     localStorage.setItem("medData", JSON.stringify(newData));
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   const deleteSelected = (i) => {
-    const temp = data;
+    const temp = { ...data };
     if (i) {
       delete temp[i];
       setSelectedOrders([...selectedOrders]);
@@ -95,7 +102,8 @@ const History = () => {
       for (let i in selectedOrders) delete temp[selectedOrders[i]];
       setSelectedOrders([]);
     }
-    setData({...temp});
+    setData({ ...temp });
+    return;
   };
 
   const selectAll = () => {
@@ -141,28 +149,41 @@ const History = () => {
                       <h2>Order</h2>
                     </center>
                     <dl>
-                      {Object.keys(data[item]).map((i) => {
-                        const medList = Object.keys(data[item][i]).map((it) => {
-                          if (data[item][i][it].quantity > 0)
+                      {Object.keys(data[item]).map((ite) => {
+                        const list = Object.keys(data[item][ite]).map((it) => {
+                          if (it.length) {
+                            let dataList = Object.keys(data[item][ite][it])
+                              .sort()
+                              .map((i) => {
+                                if (
+                                  i.length &&
+                                  data[item][ite][it][i].quantity > 0
+                                )
+                                  return (
+                                    <dd key={i}>
+                                      {i}&emsp;-&emsp;
+                                      {data[item][ite][it][i].quantity}
+                                    </dd>
+                                  );
+                                return null;
+                              });
                             return (
-                              <dd key={it}>
-                                {it}&emsp;-&emsp;
-                                {data[item][i][it].quantity}
-                              </dd>
+                              <details key={it} open>
+                                <summary>{it}</summary>
+                                <p>{dataList}</p>
+                              </details>
                             );
-                          return "";
+                          }
+                          return null;
                         });
-                        const list = (
-                          <span key={i}>
-                            {getSatus(data[item][i]) && (
-                              <p>
-                                <dt>{i}</dt>
-                                {medList}
-                              </p>
-                            )}
-                          </span>
-                        );
-                        return list;
+                        if (list.length)
+                          return (
+                            <details key={ite} open>
+                              <summary>{ite}</summary>
+                              <dd>{list}</dd>
+                            </details>
+                          );
+                        return null;
                       })}
                     </dl>
                   </div>

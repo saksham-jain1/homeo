@@ -36,7 +36,6 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem("medData", JSON.stringify(selectedMed));
-    console.log(selectedMed);
   }, [selectedMed]);
 
   const updateQuantity = (i, item, cat, comp) => {
@@ -255,14 +254,14 @@ const Home = () => {
                     {Object.keys(selectedMed[it]).map((item) => {
                       if (Object.keys(selectedMed[it][item]).length !== 0)
                         return (
-                          <span key={item+"1"}>
+                          <>
                             <tr
                               key={item}
                               style={{ background: "#ba3b0a", color: "white" }}
                             >
                               <td colSpan={2}>{item}</td>
                             </tr>
-                            {Object.keys(selectedMed[it][item]).map((i) => {
+                            {Object.keys(selectedMed[it][item]).sort().map((i) => {
                               return (
                                 <tr key={i}>
                                   <td>{i}</td>
@@ -286,7 +285,7 @@ const Home = () => {
                                 </tr>
                               );
                             })}
-                          </span>
+                          </>
                         );
                     })}
                   </tbody>
@@ -307,7 +306,7 @@ const Home = () => {
           {Object.keys(selectedMed).map((item) => {
             const data = Object.keys(selectedMed[item]).map((it) => {
               if (it.length) {
-                let dataList = Object.keys(selectedMed[item][it]).map((i) => {
+                let dataList = Object.keys(selectedMed[item][it]).sort().map((i) => {
                   if (i.length && selectedMed[item][it][i].quantity > 0)
                     return (
                       <dd key={i}>
