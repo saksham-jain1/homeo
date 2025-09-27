@@ -59,7 +59,6 @@ const Home = () => {
         link.download = `order-list ${date}.png`;
         link.href = dataUrl;
         link.click();
-        ResetAll();
       })
       .catch((err) => {
         console.log(err);
@@ -109,7 +108,7 @@ const Home = () => {
         ...temp,
         [selectedCategory]: {
           ...temp[selectedCategory],
-          [item]: { quantity: 0 },
+          [item]: {  quantity: 0 },
         },
       };
     else delete temp[selectedCategory][item];
